@@ -4,7 +4,10 @@ import random
 class Cards:
     def __init__(self):
 
-        card_type = ['Spades', 'Clover', 'Heart', 'Diamonds']
+    card_type = ['Spades', 'Clover', 'Heart', 'Diamonds']
+
+
+    
         self.card_type =  
         self.card_num = card_num
         '''[1,2,3,4,5,6,7,8,9,10]'''
