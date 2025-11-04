@@ -3,16 +3,10 @@ import random
 
 class Cards:
     def __init__(self):
-
-    card_type = ['Spades', 'Clover', 'Heart', 'Diamonds']
-
-
-    
-        self.card_type =  
+        self.card_type = card_type
         self.card_num = card_num
-        '''[1,2,3,4,5,6,7,8,9,10]'''
-        self.special_cards = special_cards
-        '''['King', 'Queen', 'Jack', 'Ace'] '''
+        # self.special_cards = special_cards
+        
 
     def get_card_type(self):
         return self.card_type
@@ -22,7 +16,13 @@ class Cards:
     def get_card_num(self):
         return self.card_num
     
-    def get_special_cards(self)
+    def get_special_cards(self):
+        pass
 
-    def set_
+    def set_(aelf):
+        pass
         
+
+card_type = ['Spades', 'Clover', 'Heart', 'Diamonds']
+card_num = [2,3,4,5,6,7,8,9,10,'K', 'Q', 'J', 'A']
+# special_cards = ['King', 'Queen', 'Jack', 'Ace']
