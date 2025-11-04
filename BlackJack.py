@@ -6,7 +6,7 @@ import random
 class Cards:
     def __init__(self):
         self.card_type = ['Spades', 'Clover', 'Heart', 'Diamonds']
-        self.card_num = [2,3,4,5,6,7,8,9,10,'K', 'Q', 'J', 'A']
+        self.card_num = ['2','3','4','5','6','7','8','9','10','K', 'Q', 'J', 'A']
         # self.special_cards = special_cards
         
     def get_card_type(self):
@@ -23,6 +23,23 @@ class Cards:
         card_num = random.choice(self.card_num)
         combined_card = [card_num, card_type]
         return combined_card
+    
+    def hand_value(hand):
+        value=0
+        ace=0
+        for card in hand:
+            num =card[0]
+            if num in ['K','Q','J']:
+                value+=10
+            elif num=='A':
+                value+=11
+                ace+=1
+            else:
+                value+=int(num)
+        while value>21 and ace>0:
+            value -=10
+            aces-=1
+        return value
 
 
 print('Weclome to Terminal BlackJack')
@@ -32,24 +49,23 @@ begin_game = input().lower()
 if begin_game == 'start':
     deck = Cards()
     card1 = deck.random_card()
-    print(f'{card1[1]} of {card1[0]}')
+    print(f'{card1[0]} of {card1[1]}')
     print('Hit        or   Stand. ')
 else:
     exit()
 
 choice1 = input().lower()
 if choice1 == 'hit':
-    deck = Cards()
     card2 = deck.random_card()
-    print(f'{card1[1]} of {card1[0]}',"and",f'{card2[1]} of {card2[0]}')
+    print(f'{card1[0]} of {card1[1]}',"and",f'{card2[0]} of {card2[1]}')
     print('Hit        or   Stand. ')
 else:
-    pass
+    print("You choose to stand")
 
 
 choice2 = input().lower()
 if choice2 == 'hit':
-    deck = Cards()
     card3= deck.random_card()
-    print(f'{card1[1]} of {card1[0]}', f'{card2[1]} of {card2[0]}',f'{card3[1]} of {card3[0]}')
-
+    print(f'{card1[0]} of {card1[1]}, {card2[0]} of {card2[1]}, {card3[0]} of {card3[1]}')
+else:
+    print("You choose to stand")
