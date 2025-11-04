@@ -26,7 +26,3 @@ class Cards:
 card_type = ['Spades', 'Clover', 'Heart', 'Diamonds']
 card_num = [2,3,4,5,6,7,8,9,10,'K', 'Q', 'J', 'A']
 # special_cards = ['King', 'Queen', 'Jack', 'Ace']
-
-
-
-shdfjsgfsjd()dxcz
