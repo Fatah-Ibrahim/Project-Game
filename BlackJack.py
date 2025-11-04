@@ -24,3 +24,32 @@ class Cards:
         combined_card = [card_num, card_type]
         return combined_card
 
+
+print('Weclome to Terminal BlackJack')
+print('   Type start to begin  ')
+begin_game = input().lower()
+
+if begin_game == 'start':
+    deck = Cards()
+    card1 = deck.random_card()
+    print(f'{card1[1]} of {card1[0]}')
+    print('Hit        or   Stand. ')
+else:
+    exit()
+
+choice1 = input().lower()
+if choice1 == 'hit':
+    deck = Cards()
+    card2 = deck.random_card()
+    print(f'{card1[1]} of {card1[0]}',"and",f'{card2[1]} of {card2[0]}')
+    print('Hit        or   Stand. ')
+else:
+    pass
+
+
+choice2 = input().lower()
+if choice2 == 'hit':
+    deck = Cards()
+    card3= deck.random_card()
+    print(f'{card1[1]} of {card1[0]}', f'{card2[1]} of {card2[0]}',f'{card3[1]} of {card3[0]}')
+
