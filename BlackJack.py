@@ -28,7 +28,7 @@ class Cards:
         value=0
         ace=0
         for card in hand:
-            num =card[0]
+            num =card[0] 
             if num in ['K','Q','J']:
                 value+=10
             elif num=='A':
