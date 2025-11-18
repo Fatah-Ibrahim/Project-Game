@@ -69,3 +69,4 @@ if choice2 == 'hit':
     print(f'{card1[0]} of {card1[1]}, {card2[0]} of {card2[1]}, {card3[0]} of {card3[1]}')
 else:
     print("You choose to stand")
+
