@@ -1,5 +1,16 @@
 #Hello guys. What game are we doing?
 import random
+import os
+
+
+def clear_terminal():
+    """Clears the terminal screen."""
+    # For Windows
+    if os.name == 'nt':
+        _ = os.system('cls')
+    # For macOS and Linux
+    else:
+        _ = os.system('clear')
 
 # deck = Cards()
 # print(deck.random_card())
@@ -24,22 +35,22 @@ class Cards:
         combined_card = [card_num, card_type]
         return combined_card
     
-    def hand_value(hand):
-        value=0
-        ace=0
-        for card in hand:
-            num =card[0] 
-            if num in ['K','Q','J']:
-                value+=10
-            elif num=='A':
-                value+=11
-                ace+=1
-            else:
-                value+=int(num)
-        while value>21 and ace>0:
-            value -=10
-            aces-=1
-        return value
+def hand_value(hand):
+    value=0
+    ace=0
+    for card in hand:
+        num =card[0] 
+        if num in ['K','Q','J']:
+            value+=10
+        elif num=='A':
+            value+=11
+            ace+=1
+        else:
+            value+=int(num)
+    while value>21 and ace>0:
+        value -=10
+        ace-=1
+    return value
 
 
 print('Weclome to Terminal BlackJack')
@@ -47,26 +58,37 @@ print('   Type start to begin  ')
 begin_game = input().lower()
 
 if begin_game == 'start':
+    clear_terminal()
+
     deck = Cards()
-    card1 = deck.random_card()
-    print(f'{card1[0]} of {card1[1]}')
-    print('Hit        or   Stand. ')
-else:
-    exit()
+    player_hand = []
+    dealer_hand = []
 
-choice1 = input().lower()
-if choice1 == 'hit':
-    card2 = deck.random_card()
-    print(f'{card1[0]} of {card1[1]}',"and",f'{card2[0]} of {card2[1]}')
-    print('Hit        or   Stand. ')
-else:
-    print("You choose to stand")
+    player_hand.append(deck.random_card())
+    player_hand.append(deck.random_card())
+    dealer_hand.append(deck.random_card())
+    dealer_hand.append(deck.random_card())
+
+    print(f'Your new hand:')
+    for card in player_hand:
+        print(f'{card[0]} of {card[1]}')
+    print(f'Total: {hand_value(player_hand)}')
 
 
-choice2 = input().lower()
-if choice2 == 'hit':
-    card3= deck.random_card()
-    print(f'{card1[0]} of {card1[1]}, {card2[0]} of {card2[1]}, {card3[0]} of {card3[1]}')
-else:
-    print("You choose to stand")
+while hand_value(player_hand) < 21:
+    choice = input("'Do you want to hit or stand?").lower()
+    
+    if choice == 'hit':
+        clear_terminal()
+        player_hand.append(deck.random_card())
+    
+        print(f'Your new hand:')
+        for card in player_hand:
+            print(f'{card[0]} of {card[1]}')
+        print(f'Total: {hand_value(player_hand)}')
 
+        if hand_value(player_hand) > 21:
+            print('Player BUST!!')
+            break
+    
+    
