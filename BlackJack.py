@@ -74,7 +74,7 @@ if begin_game == 'start':
         print(f'{card[0]} of {card[1]}')
     print(f'Total: {hand_value(player_hand)}')
 
-
+#Player's turn
 while hand_value(player_hand) < 21:
     choice = input("'Do you want to hit or stand?").lower()
     
@@ -89,6 +89,28 @@ while hand_value(player_hand) < 21:
 
         if hand_value(player_hand) > 21:
             print('Player BUST!!')
-            break
+            quit()
+    elif choice == 'stand':
+        print('You choose to stand\n')
+        break
+#dealers turn 
+while hand_value(dealer_hand)<17:
+    dealer_hand.append(deck.random_card())
+    print('Dealers Turn')
+    for card in dealer_hand:
+        print(f'{card[0]} of {card[1]}')
+print(f'Total: {hand_value(dealer_hand)}')
+
+player_total=hand_value(player_hand)
+dealer_total=hand_value(dealer_hand)
+
+print('\n    Results   ')
+if dealer_total>21:
+    print('Dealer Bust! You win!')
+elif player_total>dealer_total:
+    print('You win')
+elif player_total<dealer_total:
+    print("Dealer wins")
     
-    
+
+
