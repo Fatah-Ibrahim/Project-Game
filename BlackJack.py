@@ -35,6 +35,19 @@ class Cards:
         combined_card = [card_num, card_type]
         return combined_card
 
+
+class Player:
+    def __init__(self, name, balance = 1000, hand = []):
+        self.name = name
+        self.balance = balance
+        self.hand = hand
+    
+    def add_card(self):
+        self.hand.append(deck.random_card())
+        self.hand.append(deck.random_card())
+        
+
+
 # bank account and betting system
 class Bank:
     def __init__(self, balance = 1000):
@@ -142,7 +155,7 @@ while hand_value(player_hand) < 21:
     if hand_value(player_hand) > 21:
         print('You Bust! Dealer Wins')
         break
-    
+
     elif choice == 'stand':
         print('You choose to stand\n')
         break
