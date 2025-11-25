@@ -17,8 +17,8 @@ def clear_terminal():
 
 class Cards:
     def __init__(self):
-        self.card_type = ['Spades', 'Clover', 'Heart', 'Diamonds']
-        self.card_num = ['2','3','4','5','6','7','8','9','10','K', 'Q', 'J', 'A']
+        self.card_type = ('Spades', 'Clover', 'Heart', 'Diamonds')
+        self.card_num = ('2','3','4','5','6','7','8','9','10','K', 'Q', 'J', 'A')
 
     def get_card_type(self):
         return self.card_type
@@ -35,7 +35,7 @@ class Cards:
         combined_card = [card_num, card_type]
         return combined_card
 
-
+# bank account and betting system
 class Bank:
     def __init__(self, balance = 1000):
         self.balance = balance
@@ -59,7 +59,7 @@ class Bank:
     def show(self):
         return self.balance
 
-
+# gives the card nums value as a point system
 def hand_value(hand):
     value=0
     ace=0
@@ -80,38 +80,51 @@ def hand_value(hand):
 balance = Bank(1000)
 print('Weclome to Terminal BlackJack')
 print()
-print(f'Balance: ${balance.show()}')
-print('How much are you will to bet')
-bet1 = balance.bet(input())
-if bet1 == False:
-    print('Insufficient Funds')
-    quit()
-
-
-print()
 print('   Type start to begin  ')
-
+print()
 
 begin_game = input().lower()
 
 
-
+# if statement to start the game
 if begin_game == 'start':
+    clear_terminal()
+
+    print('How much are you will to bet')
+    print()
+    print(f'Balance: ${balance.show()}')
+    print()
+    bet1 = balance.bet(input())
+    if bet1 == False:
+        print('Insufficient Funds')
+        quit()
+
+
     clear_terminal()
 
     deck = Cards()
     player_hand = []
     dealer_hand = []
 
+    # adding to the player deck and dealer deck
     player_hand.append(deck.random_card())
     player_hand.append(deck.random_card())
     dealer_hand.append(deck.random_card())
     dealer_hand.append(deck.random_card())
 
+
     print(f'Your new hand:')
     for card in player_hand:
         print(f'{card[0]} of {card[1]}')
     print(f'Total: {hand_value(player_hand)}')
+
+
+# trying to show dealers first card with showing second card too
+    '''for card in dealer_hand:
+        for card in range(0, dealer_hand):
+            print(f'{card[0]} of {card[1]}')'''
+
+
 
 #Player's turn
 while hand_value(player_hand) < 21:
@@ -126,9 +139,10 @@ while hand_value(player_hand) < 21:
             print(f'{card[0]} of {card[1]}',)
         print(f"Total: {hand_value(player_hand)}")
 
-        if hand_value(player_hand) > 21:
-            print('Player BUST!!')
-            quit()
+    if hand_value(player_hand) > 21:
+        print('You Bust! Dealer Wins')
+        break
+    
     elif choice == 'stand':
         print('You choose to stand\n')
         break
@@ -147,12 +161,15 @@ player_total=hand_value(player_hand)
 dealer_total=hand_value(dealer_hand)
 
 print('\n Result   ')
+print()
+
 if dealer_total > 21:
     print('Dealer Bust! You win!')
     balance.win(bet1 * 2)
 
 elif player_total > 21:
     print('You Bust! Dealer Wins')
+
 
 elif player_total > dealer_total:
     print('You win')
@@ -165,5 +182,5 @@ else:
     print('Tie')
     balance.win(bet1)
 
-print(f'Balance: ${balance.show()}')
-
+print()
+print(f'Current balance: ${balance.show()}')
