@@ -34,19 +34,9 @@ class Cards:
         card_num = random.choice(self.card_num)
         combined_card = [card_num, card_type]
         return combined_card
-
-
-class Player:
-    def __init__(self, name, balance = 1000, hand = []):
-        self.name = name
-        self.balance = balance
-        self.hand = hand
     
-    def add_card(self):
-        self.hand.append(deck.random_card())
-        self.hand.append(deck.random_card())
-        
-
+    def __str__(self):
+        return f"{self.card_type}, {self.card_num}"
 
 # bank account and betting system
 class Bank:
@@ -71,6 +61,43 @@ class Bank:
 
     def show(self):
         return self.balance
+    
+    def __str__(self):
+        return f"{self.balance}"
+
+class Player:
+    def __init__(self, name, balance = 1000):
+        self.name = name
+        self.balance = balance
+        self.hand = []
+    
+    def add_card(self,deck):
+        self.hand.append(deck.random_card())
+    
+    def __str__(self):
+        return f"{self.name}, {self.balance}"
+
+player_name = input("Enter your name: ")
+
+
+with open('BlackJack.txt', 'r') as game_data:
+    data = game_data.readlines()
+
+found = False
+
+for line in data:
+    line_data = line.split(',')
+    name = line_data[0]
+    if name == player_name:
+        found = True
+        break
+
+if not found:
+    with open('BlackJack.txt', 'a') as game_data:
+        game_data.write(str(Player(player_name)) + "\n")
+
+
+
 
 # gives the card nums value as a point system
 def hand_value(hand):
@@ -91,7 +118,7 @@ def hand_value(hand):
     return value
 
 balance = Bank(1000)
-print('Weclome to Terminal BlackJack')
+print('Welcome to Terminal BlackJack')
 print()
 print('   Type start to begin  ')
 print()
@@ -107,7 +134,8 @@ if begin_game == 'start':
     print()
     print(f'Balance: ${balance.show()}')
     print()
-    bet1 = balance.bet(input())
+    bet_amount = int(input())
+    bet1 = balance.bet(bet_amount)
     if bet1 == False:
         print('Insufficient Funds')
         quit()
@@ -116,43 +144,44 @@ if begin_game == 'start':
     clear_terminal()
 
     deck = Cards()
-    player_hand = []
-    dealer_hand = []
+    player_1 = Player(player_name)
+    player_2 = Player('Dealer', float('inf'))
 
     # adding to the player deck and dealer deck
-    player_hand.append(deck.random_card())
-    player_hand.append(deck.random_card())
-    dealer_hand.append(deck.random_card())
-    dealer_hand.append(deck.random_card())
+    player_1.add_card(deck)
+    player_1.add_card(deck)
+    player_2.add_card(deck)
+    player_2.add_card(deck)
 
 
     print(f'Your new hand:')
-    for card in player_hand:
+    for card in player_1.hand:
         print(f'{card[0]} of {card[1]}')
-    print(f'Total: {hand_value(player_hand)}')
+    print(f'Total: {hand_value(player_1.hand)}')
+
+    print("\nDealer's hand:")
+    print(f'{player_2.hand[0][0]} of {player_2.hand[0][1]}')
+    print("Second card is hidden\n")
 
 
 # trying to show dealers first card with showing second card too
-    '''for card in dealer_hand:
-        for card in range(0, dealer_hand):
-            print(f'{card[0]} of {card[1]}')'''
 
 
 
 #Player's turn
-while hand_value(player_hand) < 21:
+while hand_value(player_1.hand) < 21:
     choice = input("'hit or stand?").lower()
     
     if choice == 'hit':
         clear_terminal()
-        player_hand.append(deck.random_card())
+        player_1.add_card(deck)
     
         print(f'Your hand:')
-        for card in player_hand:
+        for card in player_1.hand:
             print(f'{card[0]} of {card[1]}',)
-        print(f"Total: {hand_value(player_hand)}")
+        print(f"Total: {hand_value(player_1.hand)}")
 
-    if hand_value(player_hand) > 21:
+    if hand_value(player_1.hand) > 21:
         print('You Bust! Dealer Wins')
         break
 
@@ -161,17 +190,17 @@ while hand_value(player_hand) < 21:
         break
 
 #dealers turn 
-while hand_value(dealer_hand)<17:
-    clear_terminal
-    dealer_hand.append(deck.random_card())
-    print('Dealers Turn')
+while hand_value(player_2.hand)<17:
+    player_2.add_card(deck)
+    
 
-    for card in dealer_hand:
-        print(f'{card[0]} of {card[1]}')
-print(f'Total: {hand_value(dealer_hand)}')
+print('Dealers Final Hand:')
+for card in player_2.hand:
+    print(f'{card[0]} of {card[1]}')
+print(f'Total: {hand_value(player_2.hand)}')
 
-player_total=hand_value(player_hand)
-dealer_total=hand_value(dealer_hand)
+player_total=hand_value(player_1.hand)
+dealer_total=hand_value(player_2.hand)
 
 print('\n Result   ')
 print()
@@ -197,3 +226,4 @@ else:
 
 print()
 print(f'Current balance: ${balance.show()}')
+
