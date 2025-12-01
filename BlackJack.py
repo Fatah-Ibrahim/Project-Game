@@ -79,25 +79,49 @@ class Player:
 
 player_name = input("Enter your name: ")
 
+def load_balance(file_name,player_name,default_balance=1000):
+    try:
+        with open(file_name,"r") as game_data:
+            data=game_data.readlines()
+    # Making new file if file doesnt exist
+    except FileNotFoundError:
+        data=[]
 
-with open('BlackJack.txt', 'r') as game_data:
-    data = game_data.readlines()
+    #returns the saved balance if the player is found
+    for line in data:
+        name,balance=line.split(',')
+        if name == player_name:
+            return int(balance),data
+    #makes a new line if player is not found
+    with open(file_name, 'a') as game_data:
+        game_data.write(f"{player_name}, {default_balance}\n")
 
-found = False
-
-for line in data:
-    line_data = line.split(',')
-    name = line_data[0]
-    if name == player_name:
-        found = True
-        break
-
-if not found:
-    with open('BlackJack.txt', 'a') as game_data:
-        game_data.write(str(Player(player_name)) + "\n")
+    data.append(f"{player_name},{default_balance}\n")
+    return default_balance,data
 
 
+def update_balance(file_name,player_name,new_balance,data):
+    new_data=[]
+    update=False
 
+    for line in data:
+        name,balance=line.split(',')
+        #if player found this replaces the old balance with the new balance
+        if name == player_name:
+            new_data.append(f"{player_name},{new_balance}\n")
+            update=True
+        else:
+            new_data.append(line)
+    #add the player if the are not already in the file
+    if not update:
+        new_data.append(f"{player_name},{new_balance}\n")
+    
+    with open(file_name, "w") as game_data:
+        game_data.writelines(new_data)
+
+
+balance_amount, data = load_balance("BlackJack.txt", player_name,)
+balance = Bank(balance_amount)
 
 # gives the card nums value as a point system
 def hand_value(hand):
@@ -184,10 +208,6 @@ while hand_value(player_1.hand) < 21:
     if hand_value(player_1.hand) > 21:
         print('You Bust! Dealer Wins')
         break
-
-        if hand_value(player_hand) > 21:
-            print('Player BUST!!')
-            break
             
     elif choice == 'stand':
         print('You choose to stand\n')
@@ -229,6 +249,8 @@ elif player_total < dealer_total:
 else:
     print('Tie')
     balance.win(bet1)
+
+update_balance("BlackJack.txt", player_name, balance.show(), data)
 
 print()
 print(f'Current balance: ${balance.show()}')

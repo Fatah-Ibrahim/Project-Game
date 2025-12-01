@@ -1,4 +1,6 @@
 fatah, 1000
 tufaax, 1000
-shaun, 1000
+shaun,2000
 jeff, 1000
+& C:/Users/shaun/AppData/Local/Programs/Python/Python313/python.exe, 1000
+shaun ,500
