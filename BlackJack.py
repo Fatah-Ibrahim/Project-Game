@@ -128,7 +128,8 @@ while hand_value(player_hand) < 21:
 
         if hand_value(player_hand) > 21:
             print('Player BUST!!')
-            quit()
+            break
+            
     elif choice == 'stand':
         print('You choose to stand\n')
         break
@@ -151,8 +152,11 @@ if dealer_total > 21:
     print('Dealer Bust! You win!')
     balance.win(bet1 * 2)
 
-elif player_total > 21:
+elif player_total ==21:
     print('You Bust! Dealer Wins')
+
+elif player_total >21:
+    print("You Bust! Dealer wins")
 
 elif player_total > dealer_total:
     print('You win')
