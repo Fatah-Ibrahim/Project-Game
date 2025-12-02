@@ -119,7 +119,6 @@ def update_balance(file_name,player_name,new_balance,data):
     with open(file_name, "w") as game_data:
         game_data.writelines(new_data)
 
-
 balance_amount, data = load_balance("BlackJack.txt", player_name,)
 balance = Bank(balance_amount)
 
@@ -141,7 +140,6 @@ def hand_value(hand):
         ace-=1
     return value
 
-balance = Bank(1000)
 print('Welcome to Terminal BlackJack')
 print()
 print('   Type start to begin  ')
@@ -233,17 +231,17 @@ if dealer_total > 21:
     print('Dealer Bust! You win!')
     balance.win(bet1 * 2)
 
-elif player_total ==21:
-    print('You Bust! Dealer Wins')
+elif player_total == 21:
+    print('You Win')
 
 elif player_total >21:
     print("You Bust! Dealer wins")
 
-elif player_total > dealer_total:
+elif dealer_total < player_total and player_total < 21:
     print('You win')
     balance.win(bet1 * 2)
 
-elif player_total < dealer_total:
+elif player_total < dealer_total and dealer_total > 21:
     print('Dealer wins')
 
 else:
@@ -254,4 +252,3 @@ update_balance("BlackJack.txt", player_name, balance.show(), data)
 
 print()
 print(f'Current balance: ${balance.show()}')
-
