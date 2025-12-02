@@ -217,7 +217,7 @@ while hand_value(player_1.hand) < 21:
 while hand_value(player_2.hand)<17:
     player_2.add_card(deck)
     
-
+#kskjdsdoklsd
 print('Dealers Final Hand:')
 for card in player_2.hand:
     print(f'{card[0]} of {card[1]}')
