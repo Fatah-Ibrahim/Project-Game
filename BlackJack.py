@@ -94,10 +94,10 @@ def load_balance(file_name,player_name,default_balance=1000):
             return int(balance),data
     #makes a new line if player is not found
     with open(file_name, 'a') as game_data:
-        game_data.write(f"{player_name}, {default_balance}\n")
+        game_data.write(f"{player_name}, {Bank.balance()}\n")
 
-    data.append(f"{player_name},{default_balance}\n")
-    return default_balance,data
+    data.append(f"{player_name},{Bank.balance()}\n")
+    return {Bank.balance()},data
 
 
 def update_balance(file_name,player_name,new_balance,data):

@@ -1,4 +1,4 @@
-fatah, 1000
+fatah,1100
 tufaax, 1000
 shaun,2000
 jeff, 1000
