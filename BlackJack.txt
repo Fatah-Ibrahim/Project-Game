@@ -1,6 +1,7 @@
-fatah,129
-tufaax, 1000
+fatah,-378
+tufaax,12
 shaun,2000
 jeff, 1000
 & C:/Users/shaun/AppData/Local/Programs/Python/Python313/python.exe, 1000
 shaun ,500
+rob,1078
