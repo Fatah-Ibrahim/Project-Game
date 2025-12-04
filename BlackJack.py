@@ -141,7 +141,7 @@ def hand_value(hand):
         ace-=1
     return value
 
-balance = Bank(1000)
+
 print('Welcome to Terminal BlackJack')
 print()
 print('   Type start to begin  ')
