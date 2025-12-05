@@ -120,7 +120,7 @@ def update_balance(file_name,player_name,new_balance,data):
         game_data.writelines(new_data)
 
 
-balance_amount, data = load_balance("BlackJack.txt", player_name,)
+balance_amount, data = load_balance("BlackJack.txt", player_name)
 balance = Bank(balance_amount)
 
 # gives the card nums value as a point system
