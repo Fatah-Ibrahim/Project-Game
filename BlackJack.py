@@ -1,4 +1,4 @@
-#Hello guys. What game are we doing?
+
 import random
 
 # got from google to clear the terminal to easier user interface
