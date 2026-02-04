@@ -94,10 +94,10 @@ def load_balance(file_name,player_name,default_balance=1000):
             return int(balance),data
     #makes a new line if player is not found
     with open(file_name, 'a') as game_data:
-        game_data.write(f"{player_name}, {Bank.balance()}\n")
+        game_data.write(f"{player_name}, {default_balance}\n")
 
-    data.append(f"{player_name},{Bank.balance()}\n")
-    return {Bank.balance()},data
+    data.append(f"{player_name},{default_balance}\n")
+    return {default_balance},data
 
 
 def update_balance(file_name,player_name,new_balance,data):
@@ -119,8 +119,12 @@ def update_balance(file_name,player_name,new_balance,data):
     with open(file_name, "w") as game_data:
         game_data.writelines(new_data)
 
+<<<<<<< HEAD
 
 balance_amount, data = load_balance("BlackJack.txt", player_name)
+=======
+balance_amount, data = load_balance("BlackJack.txt", player_name,)
+>>>>>>> 6c5426c8a60ce04c8f71cbdf706803ceded12b25
 balance = Bank(balance_amount)
 
 # gives the card nums value as a point system
@@ -141,7 +145,10 @@ def hand_value(hand):
         ace-=1
     return value
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6c5426c8a60ce04c8f71cbdf706803ceded12b25
 print('Welcome to Terminal BlackJack')
 print()
 print('   Type start to begin  ')
@@ -188,10 +195,6 @@ if begin_game == 'start':
     print("Second card is hidden\n")
 
 
-# trying to show dealers first card with showing second card too
-
-
-
 #Player's turn
 while hand_value(player_1.hand) < 21:
     choice = input("'hit or stand?").lower()
@@ -217,7 +220,7 @@ while hand_value(player_1.hand) < 21:
 while hand_value(player_2.hand)<17:
     player_2.add_card(deck)
     
-#kskjdsdoklsd
+
 print('Dealers Final Hand:')
 for card in player_2.hand:
     print(f'{card[0]} of {card[1]}')
@@ -229,29 +232,30 @@ dealer_total=hand_value(player_2.hand)
 print('\n Result   ')
 print()
 
-if dealer_total > 21:
-    print('Dealer Bust! You win!')
+player_total = hand_value(player_1.hand)
+dealer_total = hand_value(player_2.hand)
+
+if player_total > 21:
+    print("You busted. Dealer wins")
+    balance.lose(bet1)
+
+elif dealer_total > 21:
+    print("Dealer busted. You win!")
     balance.win(bet1 * 2)
-
-elif player_total ==21:
-    print('You Bust! Dealer Wins')
-
-elif player_total >21:
-    print("You Bust! Dealer wins")
 
 elif player_total > dealer_total:
-    print('You win')
+    print("You win! ")
     balance.win(bet1 * 2)
 
-elif player_total < dealer_total:
-    print('Dealer wins')
+elif dealer_total > player_total:
+    print("Dealer wins! ")
+    balance.lose(bet1)
 
 else:
-    print('Tie')
-    balance.win(bet1)
+    print("Push tie")
+    balance.win(bet1)  
 
 update_balance("BlackJack.txt", player_name, balance.show(), data)
 
 print()
 print(f'Current balance: ${balance.show()}')
-
